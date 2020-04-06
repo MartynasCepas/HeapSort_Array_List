@@ -11,14 +11,14 @@ namespace HeapSort
 
     {
 
-        public MyDataArray()
+        public MyDataArray(int seed)
 
         {
             length = 10;
             var d = new Data[length];
             for (int i = 0; i < length; i++)
             {
-                d[i] = new Data();
+                d[i] = new Data(seed * i);
             }
 
             data = d;

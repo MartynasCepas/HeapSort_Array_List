@@ -11,19 +11,19 @@ namespace HeapSort
     {
         public char[] myData { get; set; }
 
-        public Data()
+        public Data(int seed)
         {
             myData = new char[6];
-            Generator();
+            Generator(seed);
             Console.WriteLine(myData);
         }
 
-        public void Generator()
+        public void Generator(int seed)
         {
             
             char random;
 
-            Random rnd = new Random();
+            Random rnd = new Random(seed);
             for (int i = 0; i < 3; i++)
             {
                 random = (char)rnd.Next('A', '[');
