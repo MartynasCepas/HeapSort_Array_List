@@ -23,17 +23,17 @@ namespace HeapSort
             int r = 2*i + 2; // right = 2*i + 2 
   
             // If left child is larger than root 
-            if (l < n && arr[l] > arr[largest]) 
+            if (l < n && arr.data[l] > arr.data[largest]) 
                 largest = l; 
   
             // If right child is larger than largest so far 
-            if (r < n && arr[r] > arr[largest]) 
+            if (r < n && arr.data[r] > arr.data[largest]) 
                 largest = r; 
   
             // If largest is not root 
             if (largest != i) 
             {
-                arr.Swap(i, largest, arr[i],arr[largest]);
+                arr.Swap(i, largest, arr.data[i],arr.data[largest]);
   
                 // Recursively heapify the affected sub-tree 
                 Heapify(arr, n, largest); 
@@ -77,7 +77,7 @@ namespace HeapSort
             { 
                 // Move current root to end 
 
-                items.Swap(0, i, items[0], items[i]);
+                items.Swap(0, i, items.data[0], items.data[i]);
   
                 // call max heapify on the reduced heap 
                 Heapify(items, i, 0); 
@@ -104,8 +104,8 @@ namespace HeapSort
 
         public static void Test_Array_List(int seed)
         {
-            int n = 12;
-            MyDataArray myarray = new MyDataArray(n, seed);
+            MyDataArray myarray = new MyDataArray();
+            int n = myarray.Length;
             Console.WriteLine("\n ARRAY \n");
             myarray.Print(n);
             HeapSort(myarray);
@@ -116,18 +116,19 @@ namespace HeapSort
             mylist.Print(n);
             HeapSort(mylist);
             mylist.Print(n);
+
         }
     }
     abstract class DataArray
     {
         protected int length;
+        public Data[] data;
         public int Length { get { return length; } }
-        public abstract double this[int index] { get; }
-        public abstract void Swap(int i, int j, double a, double b);
+        public abstract void Swap(int i, int j, Data a, Data b);
         public void Print(int n)
         {
             for (int i = 0; i < n; i++)
-                Console.Write(" {0:F5} ", this[i]);
+                Console.Write(" {0:F5} ", data[i]);
             Console.WriteLine();
         }
     }

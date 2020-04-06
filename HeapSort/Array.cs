@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,30 +10,21 @@ namespace HeapSort
     class MyDataArray : DataArray
 
     {
-        double[] data;
-        public MyDataArray(int n, int seed)
+
+        public MyDataArray()
 
         {
-            data = new double[n];
-            length = n;
-            Random rand = new Random(seed);
-            for
-           (int i = 0; i < length; i++)
-
+            length = 10;
+            var d = new Data[length];
+            for (int i = 0; i < length; i++)
             {
-                data[i] = rand.NextDouble();
-
+                d[i] = new Data();
             }
 
+            data = d;
         }
-        public override double this
-       [int index]
-
-        {
-            get { return data[index]; }
-
-        }
-        public override void Swap(int i, int j, double a, double b)
+        
+        public override void Swap(int i, int j, Data a, Data b)
             
         {
             data[i] = b; 
