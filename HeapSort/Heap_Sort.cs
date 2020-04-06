@@ -104,7 +104,7 @@ namespace HeapSort
 
         public static void Test_Array_List(int seed)
         {
-            MyDataArray myarray = new MyDataArray(seed);
+            MyDataArray myarray = new MyDataArray();
             int n = myarray.Length;
             Console.WriteLine("\n ARRAY \n");
             myarray.Print(n);
