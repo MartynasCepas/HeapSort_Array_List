@@ -76,16 +76,21 @@ namespace HeapSort
             var b = GetBytes(second.myData);
             if (a[0] < b[0])
                 return true;
-            if (a[1] < b[1] && a[0] == b[0])
+            else if (a[1] < b[1] && a[0] == b[0])
                 return true;
-            if (a[2] < b[2] && a[1] == b[1] && a[0] == b[0])
+            else if (a[2] < b[2] && a[1] == b[1] && a[0] == b[0])
                 return true;
-            if (a[3] < b[3] && a[2] == b[2] && a[1] == b[1] && a[0] == b[0])
-                return true;
-            if (a[4] < b[4] && a[3] == b[3] && a[2] == b[2] && a[1] == b[1] && a[0] == b[0])
-                return true;
-            if (a[5] < b[5] && a[4] == b[4] && a[3] == b[3] && a[2] == b[2] && a[1] == b[1] && a[0] == b[0])
-                return true;
+            else if (a[2] == b[2] && a[1] == b[1] && a[0] == b[0])
+            {
+                string s1 = "";
+                string s2 = "";
+                s1 = s1 + first.myData[3] + first.myData[4] + first.myData[5];
+                s2 = s2 + second.myData[3] + second.myData[4] + second.myData[5];
+                var n1 = int.Parse(s1);
+                var n2 = int.Parse(s2);
+                if (n1 < n2)
+                    return true;
+            }
             return false;
         }
 
