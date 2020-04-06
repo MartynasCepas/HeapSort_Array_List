@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,96 +17,96 @@ namespace HeapSort
             Test_Array_List(seed);
         }
 
-        public static void Heapify(DataArray arr, int n, int i) 
-        { 
+        public static void Heapify(DataArray arr, int n, int i)
+        {
             int largest = i; // Initialize largest as root 
-            int l = 2*i + 1; // left = 2*i + 1 
-            int r = 2*i + 2; // right = 2*i + 2 
-  
+            int l = 2 * i + 1; // left = 2*i + 1 
+            int r = 2 * i + 2; // right = 2*i + 2 
+
             // If left child is larger than root 
-            if (l < n && arr.data[l] > arr.data[largest]) 
-                largest = l; 
-  
+            if (l < n && arr.data[l] > arr.data[largest])
+                largest = l;
+
             // If right child is larger than largest so far 
-            if (r < n && arr.data[r] > arr.data[largest]) 
-                largest = r; 
-  
+            if (r < n && arr.data[r] > arr.data[largest])
+                largest = r;
+
             // If largest is not root 
-            if (largest != i) 
+            if (largest != i)
             {
-                arr.Swap(i, largest, arr.data[i],arr.data[largest]);
-  
+                arr.Swap(i, largest, arr.data[i], arr.data[largest]);
+
                 // Recursively heapify the affected sub-tree 
-                Heapify(arr, n, largest); 
-            } 
+                Heapify(arr, n, largest);
+            }
         }
 
-        public static void Heapify(DataList arr, int n, int i) 
-        { 
+        public static void Heapify(DataList arr, int n, int i)
+        {
             int largest = i; // Initialize largest as root 
-            int l = 2*i + 1; // left = 2*i + 1 
-            int r = 2*i + 2; // right = 2*i + 2 
-  
+            int l = 2 * i + 1; // left = 2*i + 1 
+            int r = 2 * i + 2; // right = 2*i + 2 
+
             // If left child is larger than root 
-            if (l < n && arr.IndexAt(l).data > arr.IndexAt(largest).data) 
-                largest = l; 
-  
+            if (l < n && arr.IndexAt(l).data > arr.IndexAt(largest).data)
+                largest = l;
+
             // If right child is larger than largest so far 
-            if (r < n && arr.IndexAt(r).data > arr.IndexAt(largest).data) 
-                largest = r; 
-  
+            if (r < n && arr.IndexAt(r).data > arr.IndexAt(largest).data)
+                largest = r;
+
             // If largest is not root 
-            if (largest != i) 
+            if (largest != i)
             {
                 arr.Swap(i, largest);
-  
+
                 // Recursively heapify the affected sub-tree 
-                Heapify(arr, n, largest); 
-            } 
+                Heapify(arr, n, largest);
+            }
         }
-        
+
         public static void HeapSort(DataArray items)
         {
-            int n = items.Length; 
-  
+            int n = items.Length;
+
             // Build heap (rearrange array) 
-            for (int i = n / 2 - 1; i >= 0; i--) 
-                Heapify(items, n, i); 
-  
+            for (int i = n / 2 - 1; i >= 0; i--)
+                Heapify(items, n, i);
+
             // One by one extract an element from heap 
-            for (int i=n-1; i>=0; i--) 
-            { 
+            for (int i = n - 1; i >= 0; i--)
+            {
                 // Move current root to end 
 
                 items.Swap(0, i, items.data[0], items.data[i]);
-  
+
                 // call max heapify on the reduced heap 
-                Heapify(items, i, 0); 
-            } 
+                Heapify(items, i, 0);
+            }
         }
 
         public static void HeapSort(DataList items)
         {
             int n = items.Length;
-            
-            for (int i = n / 2 - 1; i >= 0; i--) 
-                Heapify(items, n, i); 
 
-            for (int i=n-1; i>=0; i--) 
-            { 
+            for (int i = n / 2 - 1; i >= 0; i--)
+                Heapify(items, n, i);
+
+            for (int i = n - 1; i >= 0; i--)
+            {
                 // Move current root to end 
                 items.Swap(0, i);
-  
+
                 // call max heapify on the reduced heap 
-                Heapify(items, i, 0); 
+                Heapify(items, i, 0);
             }
         }
-        
+
 
         public static void Test_Array_List(int seed)
         {
-            MyDataArray myarray = new MyDataArray(seed);
-            int n = myarray.Length;
+            int n = 10;
+            MyDataArray myarray = new MyDataArray(n, seed);
             Console.WriteLine("\n ARRAY \n");
             myarray.Print(n);
             HeapSort(myarray);
@@ -117,6 +118,37 @@ namespace HeapSort
             HeapSort(mylist);
             mylist.Print(n);
 
+            Test_Performance(seed);
+        }
+
+        private static void Test_Performance(int seed)
+        {
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine("Performance test");
+            int[] amount = { 100, 200, 400, 800, 1600, 3200, 6400, 12800 };
+            Console.WriteLine("Array Test");
+            foreach (var k in amount)
+            {
+                MyDataArray fileArray = new MyDataArray(k, seed);
+
+                var watch = System.Diagnostics.Stopwatch.StartNew();
+                HeapSort(fileArray);
+                watch.Stop();
+                Console.WriteLine("Number of elements: " + k + " Time: " + watch.Elapsed);
+
+            }
+
+            Console.WriteLine("List Test");
+            foreach (var k in amount)
+            {
+                MyDataList fileArray = new MyDataList(k, seed);
+
+                var watch = System.Diagnostics.Stopwatch.StartNew();
+                HeapSort(fileArray);
+                watch.Stop();
+                Console.WriteLine("Number of elements: " + k + " Time: " + watch.Elapsed);
+
+            }
         }
     }
     abstract class DataArray
@@ -132,7 +164,7 @@ namespace HeapSort
             Console.WriteLine();
         }
     }
-    
+
     public abstract class DataList
     {
         protected int length;

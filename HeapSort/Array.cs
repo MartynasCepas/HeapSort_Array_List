@@ -11,10 +11,10 @@ namespace HeapSort
 
     {
 
-        public MyDataArray(int seed)
+        public MyDataArray(int n, int seed)
 
         {
-            length = 10;
+            length = n;
             var d = new Data[length];
             for (int i = 0; i < length; i++)
             {
