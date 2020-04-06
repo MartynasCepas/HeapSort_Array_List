@@ -11,9 +11,9 @@ namespace HeapSort
         public class Node
         {
             public Node nextNode { get; set; }
-            public double data { get; set; }
+            public Data data { get; set; }
 
-            public Node(double data)
+            public Node(Data data)
             {
                 this.data = data;
             }
@@ -27,26 +27,26 @@ namespace HeapSort
         {
             length = n;
             Random rand = new Random(seed);
-            headNode = new Node(rand.NextDouble());
+            headNode = new Node(new Data(seed*0));
             currentNode = headNode;
             for (int i = 1; i < length; i++)
             {
                 prevNode = currentNode;
-                currentNode.nextNode = new Node(rand.NextDouble());
+                currentNode.nextNode = new Node(new Data(seed*i));
                 currentNode = currentNode.nextNode;
             }
 
             currentNode.nextNode = null;
         }
 
-        public override double Head()
+        public override Data Head()
         {
             currentNode = headNode;
             prevNode = null;
             return currentNode.data;
         }
 
-        public override double Next()
+        public override Data Next()
         {
             prevNode = currentNode;
             currentNode = currentNode.nextNode;
@@ -61,7 +61,7 @@ namespace HeapSort
             IndexAt(index2).data = temp1;
         }
 
-        public override Node Find(double data)
+        public override Node Find(Data data)
         {
             // No list or data to find
             if (headNode != null || data != null)

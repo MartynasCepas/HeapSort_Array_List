@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HeapSort
 {
-    class Data
+    public class Data
     {
         public char[] myData { get; set; }
 
@@ -15,7 +15,6 @@ namespace HeapSort
         {
             myData = new char[6];
             Generator(seed);
-            Console.WriteLine(myData);
         }
 
         public void Generator(int seed)

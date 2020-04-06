@@ -137,10 +137,10 @@ namespace HeapSort
     {
         protected int length;
         public int Length { get { return length; } }
-        public abstract double Head();
-        public abstract double Next();
+        public abstract Data Head();
+        public abstract Data Next();
         public abstract void Swap(int index1, int index2);
-        public abstract MyDataList.Node Find(double d);
+        public abstract MyDataList.Node Find(Data d);
         public abstract MyDataList.Node IndexAt(int index);
         public void Print(int n)
         {
